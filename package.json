@@ -1,0 +1,32 @@
+{
+    "name": "shared-zustand",
+    "version": "1.0.0",
+    "description": "",
+    "repository": "Tom-Julux/sharedzustand",
+    "license": "MIT",
+    "author": "Tom-Julux <tom.julux@tomjulux.me>",
+    "main": "dist/index.cjs.js",
+    "unpkg": "dist/index.js",
+    "module": "dist/index.js",
+    "source": "src/index.ts",
+    "types": "dist/types",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "klap build",
+        "postbuild": "tsc -p tsconfig.json",
+        "prepublishOnly": "yarn build",
+        "start": "klap start",
+        "watch": "klap watch"
+    },
+    "devDependencies": {
+        "klap": "4.3.0",
+        "typescript": "3.8.3",
+        "zustand": "^2.2.3"
+    },
+    "klap": {
+        "example": "example/index.ts",
+        "fallback": "example/index.html"
+    }
+}
