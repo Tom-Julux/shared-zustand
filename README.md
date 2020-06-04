@@ -37,7 +37,7 @@ Store.setState((count) => ({ count: count + 1 }));
 
 ```js
 share("count", Store, {
-    // if set to true this tab trys to immidiatly recover the shared state from another tab.
+    // if set to true this tab trys to immediately recover the shared state from another tab.
     initialize: true,
     /*
         Each shared property is shared over a specific channel with an name that has to be unique.
