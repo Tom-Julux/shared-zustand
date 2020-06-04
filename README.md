@@ -49,4 +49,4 @@ share("count", Store, {
 
 ## Limitations
 
-Only JSON-Serilizable Objects can be shared.
+Only JSON-serilizable objects can be shared.
