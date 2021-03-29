@@ -1,4 +1,4 @@
-import { StoreApi, PartialState } from "zustand";
+import { StoreApi, PartialState , State} from "zustand";
 
 declare global {
     interface Window {
@@ -10,7 +10,7 @@ export function isSupported() {
     return "BroadcastChannel" in window;
 }
 
-export function share<T, K extends keyof T>(
+export function share<T extends State, K extends keyof T>(
     key: K,
     api: StoreApi<T>,
     { ref = "shared-", initialize = false } = {}

@@ -19,24 +19,24 @@ import { create } from "zustand";
 import { share, isSupported } from "shared-zustand";
 
 // Create any zustand store
-const [useStore, Store] = create((set) => ({ count: 1 }));
+const useStore = create((set) => ({ count: 1 }));
 
 // progressive enhancement check.
 if ("BroadcastChannel" in window /* || isSupported() */) {
     // share the property "count" of the state with other tabs
-    share("count", Store);
+    share("count", useStore);
 }
 
 // ...
 
 // somewhere in an event handler
-Store.setState((count) => ({ count: count + 1 }));
+useStore.setState((count) => ({ count: count + 1 }));
 ```
 
 ## Api
 
 ```js
-share("count", Store, {
+share("count", useStore, {
     // if set to true this tab trys to immediately recover the shared state from another tab.
     initialize: true,
     /*

@@ -1,5 +1,5 @@
 // TODO: change to zustand once react supports es modules
-import create from "https://cdn.pika.dev/zustand@^2.2.2";
+import create from "https://cdn.pika.dev/zustand@^3.3.3";
 
 import { share } from "../src";
 
