@@ -3,20 +3,20 @@
 -   :octopus: **<500B** cross-tab state sharing for [zustand](https://github.com/react-spring/zustand)
 
 ```sh
-npm install sharedzustand
+npm install shared-zustand
 ```
 
 or
 
 ```sh
-yarn add sharedzustand
+yarn add shared-zustand
 ```
 
 ## Usage
 
 ```js
 import { create } from "zustand";
-import { share, isSupported } from "sharedzustand";
+import { share, isSupported } from "shared-zustand";
 
 // Create any zustand store
 const [useStore, Store] = create((set) => ({ count: 1 }));
