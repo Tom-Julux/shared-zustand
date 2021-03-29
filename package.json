@@ -2,7 +2,7 @@
     "name": "shared-zustand",
     "version": "1.0.0",
     "description": "",
-    "repository": "Tom-Julux/sharedzustand",
+    "repository": "Tom-Julux/shared-zustand",
     "license": "MIT",
     "author": "Tom-Julux <tom.julux@tomjulux.me>",
     "main": "dist/index.cjs.js",
