@@ -33,7 +33,7 @@ if ("BroadcastChannel" in window /* || isSupported() */) {
 useStore.setState((count) => ({ count: count + 1 }));
 ```
 
-## Api
+## API
 
 ```js
 share("count", useStore, {
