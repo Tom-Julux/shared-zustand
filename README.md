@@ -1,6 +1,8 @@
 # sharedzustand
 
 -   :octopus: **<500B** cross-tab state sharing for [zustand](https://github.com/react-spring/zustand)
+-   **solid reliability** in for 1 writing and n reading tab-scenarios (with changing writing tab)
+-   **Fire and forget** approach of always using the latest state. Perfect for single user systems
 
 ```sh
 npm install shared-zustand
