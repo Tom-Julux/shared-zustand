@@ -1,6 +1,6 @@
 {
     "name": "shared-zustand",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "cross-tab state sharing for zustand",
     "repository": "Tom-Julux/shared-zustand",
     "license": "MIT",
