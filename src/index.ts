@@ -1,13 +1,13 @@
-import { StoreApi, PartialState , State} from "zustand";
+import { StoreApi, PartialState, State } from "zustand";
 
 declare global {
-    interface Window {
+    interface globalThis {
         __SHARED_ZUSTAND_USED_CHANNELS__: Set<string>;
     }
 }
 
 export function isSupported() {
-    return "BroadcastChannel" in window;
+    return "BroadcastChannel" in globalThis;
 }
 
 export function share<T extends State, K extends keyof T>(
@@ -17,16 +17,16 @@ export function share<T extends State, K extends keyof T>(
 ): [() => void, () => void] {
     const channelName = ref + "-" + key.toString();
     if (process.env.NODE_ENV != "production") {
-        if (!window.__SHARED_ZUSTAND_USED_CHANNELS__) {
-            window.__SHARED_ZUSTAND_USED_CHANNELS__ = new Set();
+        if (!globalThis.__SHARED_ZUSTAND_USED_CHANNELS__) {
+            globalThis.__SHARED_ZUSTAND_USED_CHANNELS__ = new Set();
         }
-        if (window.__SHARED_ZUSTAND_USED_CHANNELS__.has(channelName)) {
+        if (globalThis.__SHARED_ZUSTAND_USED_CHANNELS__.has(channelName)) {
             console.warn(
                 `Two shared properties are using the channel "${channelName}". If you want to reuse a channel name make shure to free the channel by calling unshare() first.`
             );
             return;
         }
-        window.__SHARED_ZUSTAND_USED_CHANNELS__.add(channelName);
+        globalThis.__SHARED_ZUSTAND_USED_CHANNELS__.add(channelName);
     }
 
     let channel = new BroadcastChannel(channelName);
@@ -61,7 +61,7 @@ export function share<T extends State, K extends keyof T>(
         channel.close();
         cleanup();
         if (process.env.NODE_ENV != "production") {
-            window.__SHARED_ZUSTAND_USED_CHANNELS__.delete(channelName);
+            globalThis.__SHARED_ZUSTAND_USED_CHANNELS__.delete(channelName);
         }
     };
 

@@ -1,5 +1,5 @@
 // TODO: change to zustand once react supports es modules
-import create from "https://cdn.pika.dev/zustand@^3.3.3";
+import create from "zustand/vanilla";
 
 import { share } from "../src";
 
@@ -8,7 +8,14 @@ interface CountStore {
     complex: { count: number };
 }
 
-const [_, countApi] = create<CountStore>((set) => ({
+interface CountStoreAPI {
+    inc: (i: number) => void;
+    dec: (i: number) => void;
+    incComplex: (i: number) => void;
+    decComplex: (i: number) => void;
+}
+
+const UseCount = create<CountStore & CountStoreAPI>((set) => ({
     count: 0,
     complex: { count: 0 },
     inc: (i = 1) => set(({ count }) => ({ count: count + i })),
@@ -18,23 +25,24 @@ const [_, countApi] = create<CountStore>((set) => ({
 }));
 
 // The generics are not needed, if zustand is imported locally.
-share<CountStore, "count">("count", countApi);
-share<CountStore, "complex">("complex", countApi);
+share<CountStore & CountStoreAPI, "count">("count", UseCount);
+// The "complex" prop is synced on startup
+share<CountStore & CountStoreAPI, "complex">("complex", UseCount, { initialize: true });
 
-countApi.subscribe(
-    (count) => (document.body.innerText = count),
+UseCount.subscribe(
+    (count) => (document.body.innerText = count as string),
     (state) => state.count
 );
 
-countApi.subscribe(
-    (complex) => console.log("complex count changed " + complex.count),
-    (state) => state.complex
+UseCount.subscribe(
+    (complex: CountStore): void => console.log("complex count = " + complex.count),
+    (state): any => state.complex
 );
 
-window.inc = countApi.getState().inc;
-window.dec = countApi.getState().dec;
-window.incComplex = countApi.getState().incComplex;
-window.decComplex = countApi.getState().decComplex;
+window.inc = UseCount.getState().inc;
+window.dec = UseCount.getState().dec;
+window.incComplex = UseCount.getState().incComplex;
+window.decComplex = UseCount.getState().decComplex;
 
 console.log(`Open the console in two tabs side by side and experiment what happens if you call:
     inc(i);
