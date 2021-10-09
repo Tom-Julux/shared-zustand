@@ -17,14 +17,14 @@ yarn add shared-zustand
 ## Usage
 
 ```js
-import { create } from "zustand";
+import { create } from "zustand/vanilla";
 import { share, isSupported } from "shared-zustand";
 
 // Create any zustand store
 const useStore = create((set) => ({ count: 1 }));
 
 // progressive enhancement check.
-if ("BroadcastChannel" in window /* || isSupported() */) {
+if ("BroadcastChannel" in globalThis /* || isSupported() */) {
     // share the property "count" of the state with other tabs
     share("count", useStore);
 }

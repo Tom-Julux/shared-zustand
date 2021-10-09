@@ -1,4 +1,4 @@
-import { StoreApi, PartialState, State } from "zustand";
+import type { StoreApi, PartialState, State } from "zustand";
 
 declare global {
     interface globalThis {
