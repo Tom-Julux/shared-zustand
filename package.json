@@ -9,13 +9,12 @@
     "unpkg": "dist/index.js",
     "module": "dist/index.js",
     "source": "src/index.ts",
-    "types": "dist/types",
+    "types": "dist/types.d.ts",
     "files": [
         "dist"
     ],
     "scripts": {
         "build": "klap build",
-        "postbuild": "tsc -p tsconfig.json",
         "prepublishOnly": "yarn build",
         "start": "klap start",
         "watch": "klap watch"
