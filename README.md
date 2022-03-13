@@ -35,7 +35,23 @@ if ("BroadcastChannel" in globalThis /* || isSupported() */) {
 useStore.setState((count) => ({ count: count + 1 }));
 ```
 
-## API
+## Dealing the the depercation warning in newish zustand versions
+
+In [new versions of zustand](https://github.com/pmndrs/zustand/pull/603) the old selector API is deprecated. Sadly this API is fundamental for this package, as it allows for syncing acros tabs to only occur when a synced property of the store changes.
+
+Luckily [zustand ships with a new middleware](https://github.com/pmndrs/zustand#using-subscribe-with-selector) to restore the selector functionality.
+
+```js
+import { create } from "zustand/vanilla";
+import { subscribeWithSelector } from 'zustand/middleware'
+import { share, isSupported } from "shared-zustand";
+
+const useStore = create(subscribeWithSelector((set) => ({ count: 1 })));
+```
+
+In the future, it may be reasonable to change the behavior of this package to not sync only some properties, but all properties of a given store. This however would, unfortunately, be fully not backward compatible and force users to restructure their data storage models.
+
+## APIcount
 
 ```js
 share("count", useStore, {
