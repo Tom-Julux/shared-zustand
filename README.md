@@ -1,7 +1,7 @@
 # sharedzustand
 
 -   :octopus: **<500B** cross-tab state sharing for [zustand](https://github.com/react-spring/zustand)
--   **solid reliability** in for 1 writing and n reading tab-scenarios (with changing writing tab)
+-   **solid reliability** in 1 writing and n reading tab-scenarios (with changing writing tab)
 -   **Fire and forget** approach of always using the latest state. Perfect for single user systems
 
 ```sh
@@ -51,7 +51,7 @@ const useStore = create(subscribeWithSelector((set) => ({ count: 1 })));
 
 In the future, it may be reasonable to change the behavior of this package to not sync only some properties, but all properties of a given store. This however would, unfortunately, be fully not backward compatible and force users to restructure their data storage models.
 
-## APIcount
+## API
 
 ```js
 share("count", useStore, {
