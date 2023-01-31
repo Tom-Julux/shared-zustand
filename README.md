@@ -35,7 +35,7 @@ if ("BroadcastChannel" in globalThis /* || isSupported() */) {
 useStore.setState((count) => ({ count: count + 1 }));
 ```
 
-## Dealing the the depercation warning in newish zustand versions
+## Dealing the the deprecation warning in newish zustand versions
 
 In [new versions of zustand](https://github.com/pmndrs/zustand/pull/603) the old selector API is deprecated. Sadly this API is fundamental for this package, as it allows for syncing acros tabs to only occur when a synced property of the store changes.
 
