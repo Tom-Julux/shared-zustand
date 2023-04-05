@@ -1,6 +1,6 @@
 # sharedzustand
 
--   :octopus: **<500B** cross-tab state sharing for [zustand](https://github.com/react-spring/zustand)
+-   :octopus: **<1.5kB** cross-tab state sharing for [zustand](https://github.com/react-spring/zustand)
 -   **solid reliability** in 1 writing and n reading tab-scenarios (with changing writing tab)
 -   **Fire and forget** approach of always using the latest state. Perfect for single user systems
 
@@ -14,14 +14,15 @@ or
 yarn add shared-zustand
 ```
 
-## Usage
+## Usage (as of zustand version 4)
 
 ```js
-import { create } from "zustand/vanilla";
+import { createStore } from "zustand";
+import { subscribeWithSelector} from "zustand/middleware";
 import { share, isSupported } from "shared-zustand";
 
 // Create any zustand store
-const useStore = create((set) => ({ count: 1 }));
+const useStore = createStore(subscribeWithSelector((set) => ({ count: 1 })));
 
 // progressive enhancement check.
 if ("BroadcastChannel" in globalThis /* || isSupported() */) {
@@ -35,7 +36,9 @@ if ("BroadcastChannel" in globalThis /* || isSupported() */) {
 useStore.setState((count) => ({ count: count + 1 }));
 ```
 
-## Dealing the the deprecation warning in newish zustand versions
+Note that I was not able to figure out what the new type of the store is, so I removed the typing from the parameters to the `share` function. Feel free to make a PR if you do.
+
+## Dealing the the deprecation warning in zustand version 3
 
 In [new versions of zustand](https://github.com/pmndrs/zustand/pull/603) the old selector API is deprecated. Sadly this API is fundamental for this package, as it allows for syncing acros tabs to only occur when a synced property of the store changes.
 
@@ -51,7 +54,24 @@ const useStore = create(subscribeWithSelector((set) => ({ count: 1 })));
 
 In the future, it may be reasonable to change the behavior of this package to not sync only some properties, but all properties of a given store. This however would, unfortunately, be fully not backward compatible and force users to restructure their data storage models.
 
-## API
+## Original usage (as of zustand versions 1-2)
+
+```js
+import { create } from "zustand/vanilla";
+import { share, isSupported } from "shared-zustand";
+
+// Create any zustand store
+const useStore = create((set) => ({ count: 1 }));
+
+// progressive enhancement check.
+if ("BroadcastChannel" in globalThis /* || isSupported() */) {
+    // share the property "count" of the state with other tabs
+    share("count", useStore);
+}
+```
+
+
+## API (has never changed)
 
 ```js
 share("count", useStore, {
