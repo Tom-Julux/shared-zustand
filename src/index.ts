@@ -34,14 +34,14 @@ export function share<T extends State, K extends keyof T>(
     let timestamp = 0;
 
     let cleanup = api.subscribe(
+        (state) => state[key],
         (state) => {
             if (!externalUpdate) {
                 timestamp = Date.now();
                 channel.postMessage({ timestamp, state });
             }
             externalUpdate = false;
-        },
-        (state) => state[key]
+        }
     );
     channel.onmessage = (evt) => {
         if (evt.data === undefined) {
