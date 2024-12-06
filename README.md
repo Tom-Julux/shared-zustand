@@ -14,7 +14,7 @@ or
 yarn add shared-zustand
 ```
 
-## Usage (as of zustand version 4)
+## Usage (as of zustand version 4 and 5)
 
 ```js
 import { createStore } from "zustand";
