@@ -71,7 +71,7 @@ if ("BroadcastChannel" in globalThis /* || isSupported() */) {
 ```
 
 
-## API (has never changed)
+## API
 
 ```js
 share("count", useStore, {
@@ -83,6 +83,14 @@ share("count", useStore, {
         stores with the same name, set this to something unique.
     */
     ref: "shared-store",
+    /*
+        BroadcastChannel uses structured cloning to communicate values.
+        This works great for most JS value, not for complex objects (such as instances of classes) however.
+        The serialize & unserialize functions allow you to define a serialized representation for a complex object
+        and restore it later from the serialized value.
+    */
+    serialize: (value) => JSON.stringify(value),
+    unserialize: (serialized) => JSON.parse(serialized),
 });
 ```
 
